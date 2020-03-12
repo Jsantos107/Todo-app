@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import TodoList from './cpmponents/TodoList';
 
 class App extends Component {
   state ={
@@ -12,9 +13,10 @@ class App extends Component {
 
   render (){
     return (
-      <div className="App">
-        
-      </div>
+      <main>
+        <h1>Todo App</h1>
+        <TodoList todo={this.state.todo}/>
+      </main>
     );
   }
 }
