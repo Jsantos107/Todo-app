@@ -18,3 +18,11 @@
 .delete{
   background-color: red;
 }
+
+.todo-form{
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
