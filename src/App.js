@@ -4,20 +4,33 @@ import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 class App extends Component {
   state = {
-    count: 3,
-    todos:[
-      {id:1, title: "First Todo", content: "I have something todo", urgent: true},
-      {id:2, title: "Second Todo", content: "I have some more todo", urgent: false},
-      {id:3, title: "Third Todo", content: "I have too much todo", urgent: true}
-    ]
+    todos:[]
+  }
+  componentDidMount(){
+    fetch('http://localhost:3000/api/v1/todos')
+      .then(response => response.json())
+      .then(todos => this.setState({ todos }))
   }
   deleteTodo = (id) => {
     const todos = this.state.todos.filter(todo => todo.id !== id)
     this.setState({ todos })
+      fetch(`http://localhost:3000/api/v1/todos/${id}`, {
+        method: "DELETE"
+      })
   }
   addTodo = (newTodo) => {
     this.setState({
-      todos: [...this.state.todos, {...newTodo, id: this.state.count + 1}]
+      todos: [...this.state.todos, newTodo]
+    })
+    const todo = {
+      todo: {...newTodo, user_id: 1}
+    }
+    fetch(`http://localhost:3000/api/v1/todos`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(todo)
     })
   }
 
